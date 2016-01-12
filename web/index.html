@@ -1,0 +1,197 @@
+<html lang="zh_cn">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<meta name="keywords" content="JSON,在线Json格式化,在线Json线校验"/>
+<meta name="description" content="在线Json格式化工具">
+<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="static/js/jquery-latest.js"></script>
+
+<style type="text/css">
+#lined{width: 500px;height: 310px;}
+.lineObj{color: #666;}
+.textAreaWithLines{font-family: courier;border: 1px solid #ddd;}
+.textAreaWithLines {border: 0px;font-size: 12px;}
+.mainline{
+margin-bottom: 10px;
+background-color: #EEEEEE;
+padding: 0;
+border: 1px solid green;
+width:1000px;
+margin:auto;
+}
+.line_left{
+float:left;
+width:40px;
+font-size: 12px;
+overflow:hidden;
+color:#AAA;
+}
+.lines div{
+height:16px;
+overflow:hidden;
+text-align:right;
+padding-right:2px;
+}
+.line_right{
+float:left;
+}
+.c{clear:both;}
+.validateButtons{margin:auto;width:300px;}
+
+/* white */
+.white {
+	color: #606060;
+	border: solid 1px #b7b7b7;
+	background: #fff;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
+	background: -moz-linear-gradient(top,  #fff,  #ededed);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+    font-size: 1.65em;
+}
+.white:hover {
+	background: #ededed;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));
+	background: -moz-linear-gradient(top,  #fff,  #dcdcdc);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
+}
+.white:active {
+	color: #999;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff));
+	background: -moz-linear-gradient(top,  #ededed,  #fff);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
+}
+
+
+</style>
+<title>Json格式化工具</title>
+
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">工具集</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="/">JSON</a></li>
+              <li><a href="/urlencode">UrlEnCode</a></li>
+              <li><a href="/base64">Base64</a></li>
+              <li><a href="/md5">MD5</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>	
+
+<h1 style="text-align: center">输入Json串</h1>
+<div class="mainline">
+	
+<div class="line_left c">
+	<div class="lines">
+
+
+	</div>
+</div>
+	<form id="JSONValidate" method="post" action="." name="JSONValidate">
+
+	<textarea id="lined" class="lined" rows="10"  style="border-top:0px;display:block;width:900px;resize:vertical;max-width:1072px"></textarea>
+	</form>
+
+</div>
+<div class='c'>&nbsp;</div>
+<div class="validateButtons">
+	<div style="float:left">
+		<button name="validate" id="validate" value="Validate" class="white">校验</button>
+		<button name="clear" id="clear" value="clear" class="white">清空</button>
+	</div>
+</div>
+
+</body>
+<script src="static/js/json2.js"></script>
+<script src="static/js/jsl.format.js"></script>
+<script>
+
+$(document).ready(function() {
+	var lineNo = fillOutLines( $(".lines"), $(".lines div").length, 1);
+	window.setInterval( function(tn) {
+		$('.line_left').height($("#lined").height());
+		var scrollTop 		= $("#lined")[0].scrollTop;
+		var clientHeight 	= $("#lined")[0].clientHeight;
+		$(".lines").css( {'margin-top': (-1*scrollTop) + "px"} );
+		lineNo = fillOutLines( $(".lines"), scrollTop + clientHeight, lineNo );
+	},10);
+	
+	var vbtn = $("#validate");
+	var jsonarea = $("#lined");
+	var clear = $("#clear");
+	vbtn.click(function(){
+		var jsonval = jsonarea.val();
+		try {
+			jsonval = JSON.stringify(JSON.parse(jsonval), null, "")
+			jsonval = jsl.format.formatJson(jsonval);
+			$(".mainline").css("border","1px solid green");
+		} catch(err) {
+			$(".mainline").css("border","1px solid red");
+		}
+		$(".lined").val(jsonval); 
+	});
+	clear.click(function(){
+		jsonarea.val('');
+	});
+
+
+});
+
+</script>
+<script type="text/javascript">
+(function($,h,c){var a=$([]),e=$.resize=$.extend($.resize,{}),i,k="setTimeout",j="resize",d=j+"-special-event",b="delay",f="throttleWindow";e[b]=250;e[f]=true;$.event.special[j]={setup:function(){if(!e[f]&&this[k]){return false}var l=$(this);a=a.add(l);$.data(this,d,{w:l.width(),h:l.height()});if(a.length===1){g()}},teardown:function(){if(!e[f]&&this[k]){return false}var l=$(this);a=a.not(l);l.removeData(d);if(!a.length){clearTimeout(i)}},add:function(l){if(!e[f]&&this[k]){return false}var n;function m(s,o,p){var q=$(this),r=$.data(this,d);r.w=o!==c?o:q.width();r.h=p!==c?p:q.height();n.apply(this,arguments)}if($.isFunction(l)){n=l;return m}else{n=l.handler;l.handler=m}}};function g(){i=h[k](function(){a.each(function(){var n=$(this),m=n.width(),l=n.height(),o=$.data(this,d);if(m!==o.w||l!==o.h){n.trigger(j,[o.w=m,o.h=l])}});g()},e[b])}})(jQuery,this);
+
+$(".mainline").resize(function(){
+	var lineNo = 1;
+	var mainheight = $(".lined").height();
+	var line = $(".lines div").length;
+	var span = 16;
+	var totalline = Math.ceil(mainheight/span);
+
+	var clientH 	= $('.lined').clientHeight;
+	
+	$('#lined').scroll( function(tn){
+		var domTextArea		= $(this)[0];
+		var scrollTop 		= domTextArea.scrollTop;
+		var clientHeight 	= domTextArea.clientHeight;
+		$(".lines").css( {'margin-top': (-1*scrollTop) + "px"} );
+		lineNo = fillOutLines( $(".lines"), scrollTop + clientHeight, lineNo );
+	});
+
+	$('.line_left').css('height',mainheight);
+	
+	if (line > totalline)
+	{
+		return;
+	}
+}); 
+
+var fillOutLines = function(codeLines, h, lineNo){
+	while ( (codeLines.height() - h ) <= 0 ){
+			codeLines.append("<div>" + lineNo + "</div>");
+		
+		lineNo++;
+	}
+	return lineNo;
+};
+
+
+</script>
+
+
+</html>

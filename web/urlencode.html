@@ -1,0 +1,153 @@
+<html lang="zh_cn">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<meta name="keywords" content="UrlDecode,UrlEncode工具,Url加密工具,Url解密工具"/>
+<meta name="description" content="在线UrlDecode,UrlEncode工具">
+<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="static/js/jquery-latest.js"></script>
+<script type="text/javascript" src="static/js/jquery-icheck.min.js"></script>
+
+<style type="text/css">
+#lined{width: 500px;height: 310px;margin:auto;padding:5px;}
+.lineObj{color: #666;}
+.textAreaWithLines{font-family: courier;border: 1px solid #ddd;}
+.textAreaWithLines {border: 0px;font-size: 12px;}
+.mainline{
+margin-bottom: 10px;
+background-color: #EEEEEE;
+padding: 0;
+border: 1px solid green;
+width:1000px;
+margin:auto;
+}
+.line_left{
+float:left;
+width:40px;
+font-size: 12px;
+overflow:hidden;
+color:#AAA;
+}
+.lines div{
+height:16px;
+overflow:hidden;
+text-align:right;
+padding-right:2px;
+}
+.line_right{
+float:left;
+}
+.c{clear:both;}
+.validateButtons{margin:auto;width:200px;}
+
+/* white */
+.white {
+	color: #606060;
+	border: solid 1px #b7b7b7;
+	background: #fff;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
+	background: -moz-linear-gradient(top,  #fff,  #ededed);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+    font-size: 1.65em;
+}
+.white:hover {
+	background: #ededed;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));
+	background: -moz-linear-gradient(top,  #fff,  #dcdcdc);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
+}
+.white:active {
+	color: #999;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff));
+	background: -moz-linear-gradient(top,  #ededed,  #fff);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
+}
+
+
+</style>
+<title>UrlDecode|UrlEncode工具</title>
+
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">工具集</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="/">JSON</a></li>
+              <li class="active"><a href="/urlencode">UrlEnCode</a></li>
+              <li><a href="/base64">Base64</a></li>
+              <li><a href="/md5">MD5</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+</nav>
+<h1 style="text-align: center">输入Url</h1>
+	
+	<form id="Urlencode" method="post" action="." name="Urlencode">
+	<textarea id="lined" class="lined" rows="10"  style="display:block;width:900px;resize:vertical;max-width:1072px"></textarea>
+	</form>
+
+<div class='c'>&nbsp;</div>
+<div class="validateButtons">
+	<div style="float:left">
+<span style="display:none;">
+<label class="radio" style="float:left;">
+<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+  Utf8
+</label>
+</span>
+<span style="display:none;"><label class="radio" style="float:left;margin-left:30px;margin-right:10px;">
+<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+  Gb2312
+</label></span>
+<span>UTF8</span>
+		<button name="devalidate" id="devalidate" value="devalidate" class="white">解码</button>
+		<button name="envalidate" id="envalidate" value="envalidate" class="white">编码</button>
+	</div>
+</div>	
+</body>
+<script language="JavaScript">
+$(document).ready(function() {
+	var jsonarea = $("#lined");
+	var debtn = $("#devalidate");
+	var enbtn = $("#envalidate");
+	//var clear = $("#clear");
+	var originurl = $("#lined");
+	debtn.click(function(){
+		var url = originurl.val();
+		try {
+			url = decodeURIComponent(url);
+			$("#lined").val(url);
+			$("#lined").css("border","1px solid green");
+		} catch(err) {
+			$("#lined").css("border","1px solid red");
+		}
+	});
+	
+	enbtn.click(function(){
+		var url = originurl.val();
+		try {
+			url = encodeURIComponent(url);
+			$("#lined").val(url);
+			$("#lined").css("border","1px solid green");
+		} catch(err) {
+			$("#lined").css("border","1px solid red");
+		}
+	});
+	
+	
+});
+</script>
+</html>
