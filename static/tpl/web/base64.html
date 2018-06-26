@@ -3,12 +3,12 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<meta name="keywords" content="UrlDecode,UrlEncode工具,Url加密工具,Url解密工具"/>
-<meta name="description" content="在线UrlDecode,UrlEncode工具">
+<meta name="keywords" content="Base64,UrlBase64加密工具,Base64解密工具"/>
+<meta name="description" content="在线Base64加码解码工具">
 <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="static/js/jquery-latest.js"></script>
-<script type="text/javascript" src="static/js/jquery-icheck.min.js"></script>
-
+<script type="text/javascript" src="static/js/base64fun.js"></script>
+    {literal}
 <style type="text/css">
 #lined{width: 500px;height: 310px;margin:auto;padding:5px;}
 .lineObj{color: #666;}
@@ -66,7 +66,8 @@ float:left;
 
 
 </style>
-<title>UrlDecode|UrlEncode工具</title>
+    {/literal}
+<title>Base64加码解码工具</title>
 
 
 </head>
@@ -86,16 +87,16 @@ float:left;
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/">JSON校验</a></li>
-                <li class="active"><a href="/urlencode">UrlEnCode加密/解密</a></li>
-                <li><a href="/base64">Base64加密/解密</a></li>
+                <li><a href="/urlencode">UrlEnCode加密/解密</a></li>
+                <li class="active"><a href="/base64">Base64加密/解密</a></li>
                 <li><a href="/md5">MD5加密</a></li>
                 <li><a href="/time">时间转换</a></li>
-				<li><a href="/qrcode">二维码</a></li>
+                <li><a href="/qrcode">二维码</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
 </nav>
-<h1 style="text-align: center">输入Url</h1>
+<h1 style="text-align: center"></h1>
 	
 	<form id="Urlencode" method="post" action="." name="Urlencode">
 	<textarea id="lined" class="lined" rows="10"  style="display:block;width:900px;resize:vertical;max-width:1072px"></textarea>
@@ -119,7 +120,6 @@ float:left;
 		<button name="envalidate" id="envalidate" value="envalidate" class="white">编码</button>
 	</div>
 </div>
-
 <br/>
 <br/>
 <br/>
@@ -127,6 +127,8 @@ float:left;
 <div style="text-align:center;padding-top:200px;"><a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备16024709号</a></div>
 	
 </body>
+
+{literal}
 <script language="JavaScript">
 $(document).ready(function() {
 	var jsonarea = $("#lined");
@@ -137,7 +139,7 @@ $(document).ready(function() {
 	debtn.click(function(){
 		var url = originurl.val();
 		try {
-			url = decodeURIComponent(url);
+			url = decode64(url);
 			$("#lined").val(url);
 			$("#lined").css("border","1px solid green");
 		} catch(err) {
@@ -148,7 +150,7 @@ $(document).ready(function() {
 	enbtn.click(function(){
 		var url = originurl.val();
 		try {
-			url = encodeURIComponent(url);
+			url = encode64(url);
 			$("#lined").val(url);
 			$("#lined").css("border","1px solid green");
 		} catch(err) {
@@ -156,8 +158,172 @@ $(document).ready(function() {
 		}
 	});
 	
+
+
+var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+
+function encode64(input)
+{
+    input = strUnicode2Ansi(input);
+    
+    var output = "";
+    var chr1, chr2, chr3 = "";
+    var enc1, enc2, enc3, enc4 = "";
+    var i = 0;
+        
+    do{
+        chr1 = input.charCodeAt(i++);
+        chr2 = input.charCodeAt(i++);
+        chr3 = input.charCodeAt(i++);
+
+        enc1 = chr1 >> 2;
+        enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+        enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+        enc4 = chr3 & 63;
+
+        if (isNaN(chr2))
+        {
+            enc3 = enc4 = 64;
+        }
+        else if(isNaN(chr3))
+        {
+            enc4 = 64;
+        }
+
+        output = output + 
+        keyStr.charAt(enc1) + 
+        keyStr.charAt(enc2) + 
+        keyStr.charAt(enc3) + 
+        keyStr.charAt(enc4);
+        chr1 = chr2 = chr3 = "";
+        enc1 = enc2 = enc3 = enc4 = "";
+        
+    }while(i < input.length);
+
+    return output;
+}
+
+function decode64(input)
+{
+  var output = "";
+  var chr1, chr2, chr3 = "";
+  var enc1, enc2, enc3, enc4 = "";
+  var i = 0;
+      
+      if(input.length%4!=0)
+      {
+                return "";
+      }
+  var base64test = /[^A-Za-z0-9\+\/\=]/g;
+      if (base64test.exec(input))
+      {
+                return "";
+      }
+
+  do {
+     enc1 = keyStr.indexOf(input.charAt(i++));
+     enc2 = keyStr.indexOf(input.charAt(i++));
+     enc3 = keyStr.indexOf(input.charAt(i++));
+     enc4 = keyStr.indexOf(input.charAt(i++));
+
+     chr1 = (enc1 << 2) | (enc2 >> 4);
+     chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+     chr3 = ((enc3 & 3) << 6) | enc4;
+             
+             output = output + String.fromCharCode(chr1);
+
+     if (enc3 != 64) {
+                    output+=String.fromCharCode(chr2);
+     }
+     if (enc4 != 64) {
+                    output+=String.fromCharCode(chr3);
+     }
+
+     chr1 = chr2 = chr3 = "";
+     enc1 = enc2 = enc3 = enc4 = "";
+
+  } while (i < input.length);
+
+  return strAnsi2Unicode(output);
+}
+
+
+function UnicodeToAnsi(chrCode)
+{
+    var chrHex=chrCode.toString(16);
+    chrHex="000"+chrHex.toUpperCase();
+    chrHex=chrHex.substr(chrHex.length-4);
+    var i=UnicodeChr().indexOf(chrHex);
+    if(i!=-1)
+    {
+            chrHex=AnsicodeChr().substr(i,4);
+    }
+    return parseInt(chrHex,16)
+}
+
+function AnsiToUnicode(chrCode)
+{
+    var chrHex=chrCode.toString(16);
+    chrHex="000"+chrHex.toUpperCase();
+    chrHex=chrHex.substr(chrHex.length-4);
+    var i=AnsicodeChr().indexOf(chrHex);
+    if(i!=-1)
+    {
+            chrHex=UnicodeChr().substr(i,4);
+    }
+    return parseInt(chrHex,16)
+}
+
+function strUnicode2Ansi(asContents)
+{
+    var len1=asContents.length;
+    var temp="";
+    for(var i=0;i<len1;i++)
+    {
+        var varasc=asContents.charCodeAt(i);
+        if(varasc<0)
+                varasc+=65536;
+        if(varasc>127)
+                varasc=UnicodeToAnsi(varasc);
+        if(varasc>255)
+        {
+            var varlow=varasc & 65280;
+            varlow=varlow>>8;
+            var varhigh=varasc & 255;
+            temp+=String.fromCharCode(varlow)+String.fromCharCode(varhigh);
+        }
+        else
+        {
+            temp+=String.fromCharCode(varasc);
+        }
+    }
+    return temp;
+}
+
+function strAnsi2Unicode(asContents)
+{
+    var len1=asContents.length;
+    var temp="";
+    var chrcode;
+    for(var i=0;i<len1;i++)
+    {
+        var varasc=asContents.charCodeAt(i);
+        if(varasc>127)
+        {
+            chrcode=AnsiToUnicode((varasc<<8)+asContents.charCodeAt(++i));
+        }
+        else
+        {
+            chrcode=varasc;
+        }
+        temp+=String.fromCharCode(chrcode);
+    }
+    return temp;
+}
 	
 });
+
+
 </script>
 
 <script>
@@ -169,6 +335,6 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-
+{/literal}
 
 </html>

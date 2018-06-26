@@ -3,13 +3,14 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<meta name="keywords" content="二维码,生成二维码"/>
-<meta name="description" content="在线二维码生成工具">
+<meta name="keywords" content="UrlDecode,UrlEncode工具,Url加密工具,Url解密工具"/>
+<meta name="description" content="在线UrlDecode,UrlEncode工具">
 <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="static/js/jquery-latest.js"></script>
-<script type="text/javascript" src="static/js/jquery.qrcode.min.js"></script>
-
+<script type="text/javascript" src="static/js/jquery-icheck.min.js"></script>
+	{literal}
 <style type="text/css">
+#lined{width: 500px;height: 310px;margin:auto;padding:5px;}
 .lineObj{color: #666;}
 .textAreaWithLines{font-family: courier;border: 1px solid #ddd;}
 .textAreaWithLines {border: 0px;font-size: 12px;}
@@ -65,7 +66,10 @@ float:left;
 
 
 </style>
-<title>二维码</title>
+
+	{/literal}
+
+<title>UrlDecode|UrlEncode工具</title>
 
 
 </head>
@@ -85,79 +89,82 @@ float:left;
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/">JSON校验</a></li>
-                <li><a href="/urlencode">UrlEnCode加密/解密</a></li>
+                <li class="active"><a href="/urlencode">UrlEnCode加密/解密</a></li>
                 <li><a href="/base64">Base64加密/解密</a></li>
                 <li><a href="/md5">MD5加密</a></li>
                 <li><a href="/time">时间转换</a></li>
-                <li class="active"><a href="/qrcode">二维码</a></li>
+				<li><a href="/qrcode">二维码</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
 </nav>
-<h1 style="text-align: center"></h1>
+<h1 style="text-align: center">输入Url</h1>
 	
-	<div class="input-group" style="width:800px;margin:auto;">
-         <span class="input-group-addon">内容</span>
-         <input type="text" name="qrstring" id="qrstring" class="form-control" style="width:350px">&nbsp;
-
-         <button name="envalidate" id="envalidate" value="envalidate" class="btn btn-primary">生成二维码</button>
-    </div>
-
-    <div class="input-group" style="width:800px;margin:auto;">
-        <span class="input-group-addon">宽度</span>
-        <input type="number" name="qrwidth" id="qrwidth" class="form-control" value="120" style="width: 100px">
-    </div>
-
-    <div class="input-group" style="width:800px;margin:auto;">
-        <span class="input-group-addon">高度</span>
-        <input type="number" name="qrheight" id="qrheight" class="form-control" value="120" style="width: 100px">
-    </div>
-
-    <br/>
-    <div class="input-group" style="width:800px;margin:auto;" id="qrcodeimg">
-
-    </div>
+	<form id="Urlencode" method="post" action="." name="Urlencode">
+	<textarea id="lined" class="lined" rows="10"  style="display:block;width:900px;resize:vertical;max-width:1072px"></textarea>
+	</form>
 
 <div class='c'>&nbsp;</div>
+<div class="validateButtons">
+	<div style="float:left">
+<span style="display:none;">
+<label class="radio" style="float:left;">
+<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+  Utf8
+</label>
+</span>
+<span style="display:none;"><label class="radio" style="float:left;margin-left:30px;margin-right:10px;">
+<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+  Gb2312
+</label></span>
+<span>UTF8</span>
+		<button name="devalidate" id="devalidate" value="devalidate" class="white">解码</button>
+		<button name="envalidate" id="envalidate" value="envalidate" class="white">编码</button>
+	</div>
+</div>
+
 <br/>
 <br/>
 <br/>
 <br/>
 <div style="text-align:center;padding-top:200px;"><a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备16024709号</a></div>
-
+	
 </body>
+
+{literal}
+
 <script language="JavaScript">
 $(document).ready(function() {
-
+	var jsonarea = $("#lined");
+	var debtn = $("#devalidate");
 	var enbtn = $("#envalidate");
-	var qrstring = $("#qrstring");
+	//var clear = $("#clear");
+	var originurl = $("#lined");
+	debtn.click(function(){
+		var url = originurl.val();
+		try {
+			url = decodeURIComponent(url);
+			$("#lined").val(url);
+			$("#lined").css("border","1px solid green");
+		} catch(err) {
+			$("#lined").css("border","1px solid red");
+		}
+	});
 	
 	enbtn.click(function(){
-		var v = qrstring.val();
-        $("#qrcodeimg").html("");
-        var w = parseInt($("#qrwidth").val());
-        var h = parseInt($("#qrheight").val());
-
-        if(w < 50 || isNaN(w)) {
-            w = 50;
-        }
-
-        if(h < 50 || isNaN(h)) {
-            h = 50;
-        }
-        $("#qrwidth").val(w);
-        $("#qrheight").val(h);
-
+		var url = originurl.val();
 		try {
-            $('#qrcodeimg').qrcode({width: w,height: h,text: v});
+			url = encodeURIComponent(url);
+			$("#lined").val(url);
+			$("#lined").css("border","1px solid green");
 		} catch(err) {
+			$("#lined").css("border","1px solid red");
 		}
 	});
 	
 	
 });
 </script>
-
 
 <script>
 var _hmt = _hmt || [];
@@ -169,5 +176,5 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-
+{/literal}
 </html>

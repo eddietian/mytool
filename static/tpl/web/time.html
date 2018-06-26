@@ -8,7 +8,7 @@
 <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="static/js/jquery-latest.js"></script>
 <script type="text/javascript" src="static/plugins/My97DatePicker/WdatePicker.js"></script>
-
+    {literal}
 <style type="text/css">
 .mainline{
 margin-bottom: 10px;
@@ -46,6 +46,9 @@ margin:auto;
 
 
 </style>
+
+    {/literal}
+
 <title>Unix时间戳(Unix timestamp)转换工具</title>
 
 
@@ -93,7 +96,7 @@ margin:auto;
     <br>
     <div class="input-group" style="width:800px;margin:auto;">
         <span class="input-group-addon">选择时间</span>
-        <input type="text" name="changetime" id="changetime" class="form-control" style="width:200px" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});">&nbsp;
+        <input type="text" name="changetime" id="changetime" class="form-control" style="width:200px" onClick="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss' } );">&nbsp;
         <button name="envalidate" id="btn3" value="envalidate" class="btn btn-primary">转换</button>&nbsp;
         <input type="text" name="deval3" id="deval3" class="form-control" style="width:150px; float:none">
     </div>
@@ -112,6 +115,9 @@ margin:auto;
 <div style="text-align:center;padding-top:200px;"><a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备16024709号</a></div>
 
 </body>
+
+{literal}
+
 <script language="JavaScript">
 
 $(document).ready(function() {
@@ -171,7 +177,7 @@ var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
   hm.src = "//hm.baidu.com/hm.js?ca61e9e867140b5b6a5fdfaec24dc1ab";
-  var s = document.getElementsByTagName("script")[0]; 
+  var s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
@@ -245,5 +251,5 @@ var _hmt = _hmt || [];
         });
     })(jQuery);
 </script>
-
+{/literal}
 </html>

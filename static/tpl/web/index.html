@@ -9,7 +9,7 @@
 <meta name="description" content="在线Json格式化工具">
 <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="static/js/jquery-latest.js"></script>
-
+{literal}
 <style type="text/css">
 #lined{height: 310px;}
 .lineObj{color: #666;}
@@ -67,6 +67,7 @@ float:left;
 
 
 </style>
+{/literal}
 <title>	PHP内容站-Json格式化工具</title>
 
 
@@ -128,6 +129,7 @@ float:left;
 </body>
 <script src="static/js/json2.js"></script>
 <script src="static/js/jsl.format.js"></script>
+{literal}
 <script>
 
 $(document).ready(function() {
@@ -163,6 +165,7 @@ $(document).ready(function() {
 
 </script>
 <script type="text/javascript">
+
 (function($,h,c){var a=$([]),e=$.resize=$.extend($.resize,{}),i,k="setTimeout",j="resize",d=j+"-special-event",b="delay",f="throttleWindow";e[b]=250;e[f]=true;$.event.special[j]={setup:function(){if(!e[f]&&this[k]){return false}var l=$(this);a=a.add(l);$.data(this,d,{w:l.width(),h:l.height()});if(a.length===1){g()}},teardown:function(){if(!e[f]&&this[k]){return false}var l=$(this);a=a.not(l);l.removeData(d);if(!a.length){clearTimeout(i)}},add:function(l){if(!e[f]&&this[k]){return false}var n;function m(s,o,p){var q=$(this),r=$.data(this,d);r.w=o!==c?o:q.width();r.h=p!==c?p:q.height();n.apply(this,arguments)}if($.isFunction(l)){n=l;return m}else{n=l.handler;l.handler=m}}};function g(){i=h[k](function(){a.each(function(){var n=$(this),m=n.width(),l=n.height(),o=$.data(this,d);if(m!==o.w||l!==o.h){n.trigger(j,[o.w=m,o.h=l])}});g()},e[b])}})(jQuery,this);
 
 $(".mainline").resize(function(){
@@ -212,5 +215,5 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-
+{/literal}
 </html>
