@@ -1,5 +1,7 @@
 <html lang="zh_cn">
 <head>
+<meta name="baidu_union_verify" content="b6e4e547c5effc35994f6e521cad10be">
+<meta name="baidu_union_verify" content="b6e4e547c5effc35994f6e521cad10be">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
@@ -9,7 +11,7 @@
 <script type="text/javascript" src="static/js/jquery-latest.js"></script>
 
 <style type="text/css">
-#lined{width: 500px;height: 310px;}
+#lined{height: 310px;}
 .lineObj{color: #666;}
 .textAreaWithLines{font-family: courier;border: 1px solid #ddd;}
 .textAreaWithLines {border: 0px;font-size: 12px;}
@@ -65,7 +67,7 @@ float:left;
 
 
 </style>
-<title>Json格式化工具</title>
+<title>	PHP内容站-Json格式化工具</title>
 
 
 </head>
@@ -75,7 +77,7 @@ float:left;
         <div class="container">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
+              <span class="sr-only">程序员</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
@@ -84,10 +86,12 @@ float:left;
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="/">JSON</a></li>
-              <li><a href="/urlencode">UrlEnCode</a></li>
-              <li><a href="/base64">Base64</a></li>
-              <li><a href="/md5">MD5</a></li>
+              <li class="active"><a href="/">JSON校验</a></li>
+              <li><a href="/urlencode">UrlEnCode加密/解密</a></li>
+              <li><a href="/base64">Base64加密/解密</a></li>
+              <li><a href="/md5">MD5加密</a></li>
+              <li><a href="/time">时间转换</a></li>
+			  <li><a href="/qrcode">二维码</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -104,7 +108,7 @@ float:left;
 </div>
 	<form id="JSONValidate" method="post" action="." name="JSONValidate">
 
-	<textarea id="lined" class="lined" rows="10"  style="border-top:0px;display:block;width:900px;resize:vertical;max-width:1072px"></textarea>
+	<textarea id="lined" class="lined" rows="10"  style="border-top:0px;border-right:0px;display:block;width:100%;resize:vertical;max-width:957px"></textarea>
 	</form>
 
 </div>
@@ -115,6 +119,11 @@ float:left;
 		<button name="clear" id="clear" value="clear" class="white">清空</button>
 	</div>
 </div>
+<br/>
+<br/>
+<br/>
+<br/>
+<div style="text-align:center;padding-top:200px;"><a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备16024709号</a></div>
 
 </body>
 <script src="static/js/json2.js"></script>
@@ -164,13 +173,14 @@ $(".mainline").resize(function(){
 	var totalline = Math.ceil(mainheight/span);
 
 	var clientH 	= $('.lined').clientHeight;
-	
+
 	$('#lined').scroll( function(tn){
 		var domTextArea		= $(this)[0];
 		var scrollTop 		= domTextArea.scrollTop;
 		var clientHeight 	= domTextArea.clientHeight;
 		$(".lines").css( {'margin-top': (-1*scrollTop) + "px"} );
-		lineNo = fillOutLines( $(".lines"), scrollTop + clientHeight, lineNo );
+		//lineNo = fillOutLines( $(".lines"), scrollTop + clientHeight, lineNo );
+		lineNo = fillOutLines( $(".lines"), totalline, lineNo );
 	});
 
 	$('.line_left').css('height',mainheight);
@@ -191,6 +201,15 @@ var fillOutLines = function(codeLines, h, lineNo){
 };
 
 
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?ca61e9e867140b5b6a5fdfaec24dc1ab";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
 </script>
 
 
