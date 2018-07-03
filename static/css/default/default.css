@@ -1,0 +1,15 @@
+.container{
+    width: 1170px;
+    max-width: none !important;
+}
+body {
+    width: 100%;
+}
+.navbar {
+    width: 100%;
+}
+
+.main_container {
+    padding: 20px;
+}
+

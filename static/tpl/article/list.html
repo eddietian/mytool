@@ -1,0 +1,38 @@
+<html lang="zh_cn">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="keywords" content="{$data.coterieinfo.title}"/>
+<meta name="description" content="{$data.coterieinfo.introduce}">
+<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/css/default/default.css" rel="stylesheet">
+<title>{$data.coterieinfo.title}</title>
+
+</head>
+<body>
+
+{include file="default/header.html"}
+
+<ul class="list-group">
+	{foreach $data.rows as $v}
+	<li class="list-group-item">
+		<a href="/art/{$v['coterieid']}">{$v['title']}</a>
+		{$v['introduce']}
+	</li>
+	{/foreach}
+</ul>
+
+<table class="table table-bordered table-striped table-hover table-list">
+	<tfoot>
+	<tr>
+		<td colspan="11">
+			{$pager}
+		</td>
+	</tr>
+	</tfoot>
+</table>
+
+{include file="default/footer.html"}
+
+</body>
+</html>

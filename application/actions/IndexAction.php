@@ -2,6 +2,17 @@
 class IndexAction extends Basic{
 
 	public function index() {
+		$data = array();
+
+		$coteriemodule = new CoterieModule();
+
+		//拿到10篇文章
+		$searchparams = array(
+			"classid" => CoterieModule::COTERIE_CLASS_9
+		);
+		$data['coterieinfo'] = $coteriemodule->getCoterieTop($searchparams, 10);
+
+		$this->smarty->assign("data", $data);
 		$this->smarty->display('web/index.html');
 	}
 

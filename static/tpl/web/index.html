@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width">
 <meta name="keywords" content="JSON,在线Json格式化,在线Json线校验"/>
 <meta name="description" content="在线Json格式化工具">
-<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<script type="text/javascript" src="static/js/jquery-latest.js"></script>
+<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/css/default/default.css" rel="stylesheet">
+<script type="text/javascript" src="/static/js/jquery-latest.js"></script>
 {literal}
 <style type="text/css">
 #lined{height: 310px;}
@@ -108,10 +109,8 @@ float:left;
 	</div>
 </div>
 	<form id="JSONValidate" method="post" action="." name="JSONValidate">
-
 	<textarea id="lined" class="lined" rows="10"  style="border-top:0px;border-right:0px;display:block;width:100%;resize:vertical;max-width:957px"></textarea>
 	</form>
-
 </div>
 <div class='c'>&nbsp;</div>
 <div class="validateButtons">
@@ -119,6 +118,20 @@ float:left;
 		<button name="validate" id="validate" value="Validate" class="white">校验</button>
 		<button name="clear" id="clear" value="clear" class="white">清空</button>
 	</div>
+</div>
+<br/>
+<br/>
+<br/>
+<div>
+
+	<ul class="list-group">
+		{foreach $data.coterieinfo as $v}
+			<li class="list-group-item">
+				<a href="/art/{$v['coterieid']}">{$v['title']}</a>
+				{$v['introduce']}
+			</li>
+		{/foreach}
+	</ul>
 </div>
 <br/>
 <br/>
