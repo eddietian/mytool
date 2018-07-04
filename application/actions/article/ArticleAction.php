@@ -2,6 +2,7 @@
 class ArticleAction extends Basic{
 
 	public function index() {
+
 		$data = array();
 		$coteriemodule = new CoterieModule();
 
